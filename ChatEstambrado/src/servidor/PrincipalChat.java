@@ -23,10 +23,11 @@ public class PrincipalChat extends JFrame{
     public JTextArea areaTexto;
     private static ServerSocket servidor;
     private static Socket conexion;
-    private static String ip = "127.0.0.1";
+    private static String ip; //"127.0.0.1"
     public static PrincipalChat main;
     public static chatCliente mainCliente;
-    private BufferedImage image; 
+    private BufferedImage image;
+    public String username;
 
     public PrincipalChat() throws IOException{
         super("Servidor");
@@ -71,12 +72,18 @@ public class PrincipalChat extends JFrame{
     public void mostrarMensaje(String mensaje) {
         areaTexto.append(mensaje + "\n");
     }
+    
     public void habilitarTexto(boolean editable) {
         campoTexto.setEditable(editable);
+    }
+    
+    public String IP(){
+                return ip =  JOptionPane.showInputDialog("Ingrese la direccion estatica para el servidor:");
     }
  
     public static void main(String[] args) throws IOException {
         PrincipalChat main = new PrincipalChat();
+        main.IP();
         main.setLocationRelativeTo(null);
         main.setExtendedState(MAXIMIZED_BOTH);
         main.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
@@ -84,6 +91,7 @@ public class PrincipalChat extends JFrame{
  
         try {
             servidor = new ServerSocket(11111, 100);
+            
  
             while (true){
                 try {
